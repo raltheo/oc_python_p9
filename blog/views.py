@@ -1,8 +1,11 @@
+
 from django.shortcuts import redirect, render
 from . import forms
+from .models import Ticket
 # Create your views here.
 def flux_page(request):
-    return render(request, 'flux/flux.html')
+    tickets = Ticket.objects.all()
+    return render(request, 'flux/flux.html', {'tickets': tickets})
 
 def ticket_page(request):
     if request.method == 'POST':

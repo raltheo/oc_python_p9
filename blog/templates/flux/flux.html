@@ -7,14 +7,26 @@
     </head>
     <body>
         <div class="header">
-            <div></div>
+            <div class="side_header"></div>
             <p class="header_title">LITReview</p>
-            <div class="nav">
+            <div class="nav side_header">
                 <a class="a_nav" href="/flux">Flux</a>
-                <a class="a_nav" href="">Posts</a>
-                <a class="a_nav" href="">Abonnements</a>
-                <a class="a_nav" href="/logout">se déconnecter</a>
+                <a class="a_nav" href="/post">Posts</a>
+                <a class="a_nav" href="/abonnement">Abonnements</a>
+                <a class="a_nav" href="/logout">logout</a>
             </div>
+            
         </div>
+        {% for ticket in tickets %}
+                <li>
+                    <p>here</p>
+                    <strong>{{ ticket.title }}</strong><br>
+                    {{ ticket.description }}<br>
+                    {% if ticket.image %}
+                        <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}">
+                    {% endif %}
+                    <br><br>
+                </li>
+            {% endfor %}
     </body>
 </html>

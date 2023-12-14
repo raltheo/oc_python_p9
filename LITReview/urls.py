@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 import users.views
 import blog.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,3 +29,6 @@ urlpatterns = [
     path('flux', blog.views.flux_page, name='flux'),
     path('ticket', blog.views.ticket_page, name='ticket'),
 ]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

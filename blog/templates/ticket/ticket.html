@@ -8,20 +8,26 @@
     </head>
     <body>
         <div class="header">
-            <div></div>
+            <div class="side_header"></div>
             <p class="header_title">LITReview</p>
-            <div class="nav">
+            <div class="nav side_header">
                 <a class="a_nav" href="/flux">Flux</a>
-                <a class="a_nav" href="">Posts</a>
-                <a class="a_nav" href="">Abonnements</a>
-                <a class="a_nav" href="/logout">se déconnecter</a>
+                <a class="a_nav" href="/post">Posts</a>
+                <a class="a_nav" href="/abonnement">Abonnements</a>
+                <a class="a_nav" href="/logout">logout</a>
             </div>
         </div>
         <div class="container_ticket">
             <h2>Crée un ticket</h2>
-            <form method="post" enctype="multipart/form-data">
-                {{ form.as_ul }}
+            <form method="post" class="form_ticket" enctype="multipart/form-data">
+                <p>Title :</p>
+                {{ form.title }}
+                <p>Description :</p>
+                {{ form.description }}
+                <p>Image :</p>
+                {{ form.image }}
                 {% csrf_token %}
+                <br>
                 <button class="btn_log" type="submit">Crée le ticket</button>
             </form>
         </div>
