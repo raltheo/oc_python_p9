@@ -90,3 +90,18 @@ a{
 .error_msg{
     color: red;
 }
+
+.register_container{
+    color: #66FCF1;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form_register{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: auto;
+}
