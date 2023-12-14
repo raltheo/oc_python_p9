@@ -29,6 +29,7 @@ urlpatterns = [
     path('flux', blog.views.flux_page, name='flux'),
     path('post', blog.views.post_page, name='post'),
     path('ticket', blog.views.ticket_page, name='ticket'),
+    path('review', blog.views.review_page, name='review'),
 ]
 
 if settings.DEBUG:

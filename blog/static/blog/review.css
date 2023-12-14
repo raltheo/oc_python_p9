@@ -1,0 +1,28 @@
+.container_rev{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:#66FCF1;
+    padding-top: 1rem;
+}
+
+.rev_form{
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: auto;
+}
+
+.container_radio{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-checkbox{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

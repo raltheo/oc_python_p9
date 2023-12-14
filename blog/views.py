@@ -2,6 +2,8 @@
 from django.shortcuts import redirect, render
 from . import forms
 from .models import Ticket
+
+
 # Create your views here.
 def flux_page(request):
     tickets = Ticket.objects.all()
@@ -22,3 +24,27 @@ def ticket_page(request):
 
 def post_page(request):
     return render(request, "blog/post.html")
+
+def review_page(request):
+    if request.method == 'POST':
+        review_form = forms.ReviewForm(request.POST)
+        ticket_form = forms.TicketForm(request.POST, request.FILES)
+
+        if review_form.is_valid() and ticket_form.is_valid():
+            
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+            
+            review = review_form.save(commit=False)
+            review.ticket = ticket
+            review.user = request.user
+            review.save()
+
+            return redirect('flux')
+
+    else:
+        review_form = forms.ReviewForm()
+        ticket_form = forms.TicketForm()
+
+    return render(request, 'blog/review.html', {'review_form': review_form, 'ticket_form': ticket_form})
