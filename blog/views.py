@@ -5,7 +5,7 @@ from .models import Ticket
 # Create your views here.
 def flux_page(request):
     tickets = Ticket.objects.all()
-    return render(request, 'flux/flux.html', {'tickets': tickets})
+    return render(request, 'blog/flux.html', {'tickets': tickets})
 
 def ticket_page(request):
     if request.method == 'POST':
@@ -18,4 +18,7 @@ def ticket_page(request):
     else:
         form = forms.TicketForm()
 
-    return render(request, 'ticket/ticket.html', {'form': form})
+    return render(request, 'blog/ticket.html', {'form': form})
+
+def post_page(request):
+    return render(request, "blog/post.html")

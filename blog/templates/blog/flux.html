@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{%load static%}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'blog/flux.css' %}" />
+{% endblock %}
+
+{% block content %}
+    {% for ticket in tickets %}
+    <li>
+        <p>here</p>
+        <strong>{{ ticket.title }}</strong><br>
+        {{ ticket.description }}<br>
+        {% if ticket.image %}
+            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}">
+        {% endif %}
+        <br><br>
+    </li>
+    {% endfor %}
+{% endblock %}
+       

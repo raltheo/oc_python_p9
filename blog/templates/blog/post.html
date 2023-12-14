@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{%load static%}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'blog/post.css' %}" />
+{% endblock %}
+{% block content %}
+    <div class="container_post">
+        <div class="choice_post">
+            <h2>Crée un ticket</h2>
+            <p>les ticket vous permettent de demander l'avis d'un autre lecteur sur un livre en particulier</p>
+            <a class="a_btn" href="/ticket">Crée un Ticket</a>
+        </div>
+        <div class="choice_post">
+            <h2>Crée une Revue</h2>
+            <p>les revues vous permettent de donné votre avis sur une livre en particulier</p>
+            <a class="a_btn" href="/review">Crée une Revue</a>
+        </div>
+    </div>
+{% endblock %}
