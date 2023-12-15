@@ -53,9 +53,16 @@
     background-color: #1F2833;
     padding: 1rem;
     border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 
 .img_post{
     max-width: 500px;
     object-fit: content;
+}
+
+.mange_curly{
+    margin: auto;
 }
