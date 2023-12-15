@@ -35,7 +35,7 @@ urlpatterns = [
     path('modifypost', users.views.unfollow_page, name='modifypost'),
     path('block', users.views.unfollow_page, name='block'),
     path('deletepost', blog.views.deletepost, name='deletepost'),
-    path('replyticket', users.views.unfollow_page, name='replyticket'),
+    path('reply', blog.views.reply_page, name='replyticket'),
 ]
 
 if settings.DEBUG:

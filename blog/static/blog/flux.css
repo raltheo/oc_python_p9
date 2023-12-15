@@ -70,6 +70,7 @@
 .container_del_mod{
     display: flex;
     justify-content: flex-end;
+    flex-direction: row;
 }
 
 .del_btn{
@@ -79,4 +80,6 @@
     border-radius: 12px;
     border: #66FCF1 solid 2px;
     cursor: pointer;
+    text-decoration: none;
+    font-size: 17px;
 }

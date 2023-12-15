@@ -1,12 +1,15 @@
 
+import re
 from django.shortcuts import get_object_or_404, redirect, render
 from . import forms
 from .models import Ticket, Review
 from users.utils import get_users_viewable_reviews, get_users_viewable_ticket
 from itertools import chain
 from django.db.models import CharField, Value
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def flux_page(request):
     reviews = get_users_viewable_reviews(request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
@@ -23,6 +26,7 @@ def flux_page(request):
     )
     return render(request, 'blog/flux.html', {'posts': posts})
 
+@login_required
 def ticket_page(request):
     if request.method == 'POST':
         form = forms.TicketForm(request.POST, request.FILES)
@@ -79,6 +83,30 @@ def deletepost(request):
             ticket = get_object_or_404(Ticket, id=postid)
             
             if ticket.user == request.user:
-                
+                 
                 ticket.delete()
+    return redirect("flux")
+
+
+def reply_page(request):
+    try:
+        if request.POST:
+            ticket = get_object_or_404(Ticket, id=request.POST.get("ticketid"))
+            review_form = forms.ReviewForm(request.POST)
+            if review_form.is_valid():            
+                review = review_form.save(commit=False)
+                review.ticket = ticket
+                review.user = request.user
+                review.save()
+
+                return redirect('flux')
+        if request.GET.get("ticketid"):
+            ticket = get_object_or_404(Ticket, id=request.GET.get("ticketid"))
+            review_form = forms.ReviewForm()
+            return render(request, 'blog/replyticket.html', {'review_form': review_form, 'ticket': ticket})
+    except:
+        return redirect('flux')
+    
+        
+
     return redirect("flux")
