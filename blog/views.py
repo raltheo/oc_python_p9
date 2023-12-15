@@ -2,11 +2,14 @@
 from django.shortcuts import redirect, render
 from . import forms
 from .models import Ticket
-
+from users.utils import get_users_viewable_reviews, get_users_viewable_ticket
 
 # Create your views here.
 def flux_page(request):
-    tickets = Ticket.objects.all()
+    reviews = get_users_viewable_reviews(request.user)
+    tickets = get_users_viewable_ticket(request.user)
+    print(tickets)
+    # tickets = Ticket.objects.all()
     return render(request, 'blog/flux.html', {'tickets': tickets})
 
 def ticket_page(request):

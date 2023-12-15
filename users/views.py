@@ -5,7 +5,6 @@ from . import forms
 from .models import UserFollows
 from django.contrib.auth.models import User
 
-
 def logout_page(request):
     logout(request)
     return redirect('login')
