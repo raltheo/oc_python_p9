@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %}
+{%load static%}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'blog/abonnement.css' %}" />
+{% endblock %}
+{% block content %}
+    <div class="container_abonnement">
+        <h2>Suivre quelqu'un</h2>
+        {% if message %}
+            {{message}}
+        {% endif %}
+        <form method="post" class="form_abonnement" >
+            <p>Username :</p>
+            {{form.username}}
+            {% csrf_token %}
+            
+            <button class="btn_log" type="submit">Follow</button>
+          </form>
+          <div class="container_follows">
+            <div class="container_follow">
+                <h2>Vos Abonnements</h2>
+                {% if followed_users %}
+                    {% for followed in followed_users %}
+                    <div class="container_user_follow followed">
+                        <p>{{ followed.followed_user }}</p>
+                    </div>
+                        
+                    {% endfor %}
+                {% else %}
+                    <p>Vous ne suivez personne</p>
+                {% endif %}
+              </div>
+              <div class="container_follow">
+                <h2>Les personnes qui vous suivent</h2>
+                {% if followed_users %}
+                    {% for follower in followers %}
+                    <div class="container_user_follow follower">
+                        <p>{{ follower.user }}</p>
+                    </div>
+                        
+                    {% endfor %}
+                {% else %}
+                    <p>Vous n'êtes pas suvis</p>
+                {% endif %}
+              </div>
+          </div>
+          
+    </div>
+{% endblock content %}

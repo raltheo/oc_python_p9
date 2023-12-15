@@ -1,6 +1,10 @@
-from django.shortcuts import redirect, render
+import re
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import login, authenticate, logout
 from . import forms
+from .models import UserFollows
+from django.contrib.auth.models import User
+
 
 def logout_page(request):
     logout(request)
@@ -40,3 +44,29 @@ def signup_page(request):
             login(request, user)
             return redirect('flux')
     return render(request, 'users/register.html', context={'form': form})
+
+def abonnement_page(request):
+    message = ''
+    followers = UserFollows.objects.filter(followed_user=request.user)
+    followed_users = UserFollows.objects.filter(user=request.user)
+    
+    if request.method == 'POST':
+        
+        form = forms.UserFollowsForm(request.POST)
+        if form.is_valid():
+            username_to_follow = form.cleaned_data['username']
+            user_to_follow = User.objects.get(username=username_to_follow)
+
+            if not UserFollows.objects.filter(user=request.user, followed_user=user_to_follow).exists():
+                UserFollows.objects.create(
+                    user=request.user,
+                    followed_user=user_to_follow
+                )
+                message = 'Abonnement effectué'
+            else:
+                message = 'Vous suivez déjà cet utilisateur.'
+            return render(request, 'users/abonnement.html', {'form': form, 'message': message, 'followers':followers, 'followed_users':followed_users})
+    else:
+        form = forms.UserFollowsForm()
+
+    return render(request, 'users/abonnement.html', {'form': form, 'message': message, 'followers':followers, 'followed_users':followed_users})
