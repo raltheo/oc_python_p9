@@ -5,16 +5,39 @@
 {% endblock %}
 
 {% block content %}
-    {% for ticket in tickets %}
-    <li>
-        <p>here</p>
-        <strong>{{ ticket.title }}</strong><br>
-        {{ ticket.description }}<br>
-        {% if ticket.image %}
-            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}">
-        {% endif %}
-        <br><br>
-    </li>
-    {% endfor %}
+    <div class="container_flux">
+        <h2>Posts</h2>
+        <div class="container_post">
+            {% for post in posts %}
+                {% if post.content_type == "REVIEW" %}
+                    <div class="container_review">
+                        <div class="header_review">
+                            <p>{{ post.user }} a créé une revue</p>
+                            <p>{{ post.time_created }}</p>
+                        </div>
+                        <h3>{{ post.headline }}</h3>
+                        <p>{{ post.body }}</p>
+                        <p>note : {{post.rating}}/5</p>
+                        <div class="ticket_in_review">
+                            <p>Ticket - {{post.ticket.user}}</p>
+                        </div>
+                        
+                    </div>
+                {% else%}
+                    <div class="container_ticket">
+                        <div class="header_ticket">
+                            <p>{{ post.user }} a créé un ticket</p>
+                            <p>{{ post.time_created }}</p>
+                        </div>
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.description }}</p>
+                        {% if post.image %}
+                            <a href="/media/{{ post.image }}"><img class="img_post" src="/media/{{ post.image }}" /></a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
        

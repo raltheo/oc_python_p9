@@ -1,0 +1,61 @@
+.container_flux{
+    color: #66FCF1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    margin-top: 1rem;
+}
+
+.container_post{
+    background-color: #1F2833;
+    width: 80%;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    
+    gap: 1.2rem;
+}
+
+.container_ticket{
+    background-color: #0B0C10;
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.container_review{
+    background-color: #0B0C10;
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.header_ticket{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.header_review{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.ticket_in_review{
+    background-color: #1F2833;
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.img_post{
+    max-width: 500px;
+    object-fit: content;
+}
