@@ -33,3 +33,6 @@ class UserFollowsForm(forms.Form):
         if not User.objects.filter(username=username).exists():
             raise forms.ValidationError('User with this username does not exist.')
         return username
+
+class UnfollowForm(forms.Form):
+    username = forms.CharField(max_length=63, widget=forms.HiddenInput())

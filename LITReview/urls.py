@@ -31,6 +31,7 @@ urlpatterns = [
     path('ticket', blog.views.ticket_page, name='ticket'),
     path('review', blog.views.review_page, name='review'),
     path('abonnement', users.views.abonnement_page, name='abonnement'),
+    path('unfollow', users.views.unfollow_page, name='unfollow'),
 ]
 
 if settings.DEBUG:

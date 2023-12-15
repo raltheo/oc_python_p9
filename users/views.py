@@ -1,6 +1,7 @@
 import re
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.http import require_POST
 from . import forms
 from .models import UserFollows
 from django.contrib.auth.models import User
@@ -69,3 +70,17 @@ def abonnement_page(request):
         form = forms.UserFollowsForm()
 
     return render(request, 'users/abonnement.html', {'form': form, 'message': message, 'followers':followers, 'followed_users':followed_users})
+
+@require_POST
+def unfollow_page(request):
+    form = forms.UnfollowForm(request.POST)
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            user_to_unfollow = User.objects.get(username=username)
+            if user_to_unfollow != request.user:
+                user_follow = UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow)
+                if user_follow.exists():
+                    user_follow.delete()
+    
+    return redirect("abonnement")
