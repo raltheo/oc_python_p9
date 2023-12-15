@@ -66,3 +66,17 @@
 .mange_curly{
     margin: auto;
 }
+
+.container_del_mod{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.del_btn{
+    background-color: #1F2833;
+    color: #66FCF1;
+    padding: .4rem;
+    border-radius: 12px;
+    border: #66FCF1 solid 2px;
+    cursor: pointer;
+}

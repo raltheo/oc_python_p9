@@ -1,7 +1,7 @@
 
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from . import forms
-from .models import Ticket
+from .models import Ticket, Review
 from users.utils import get_users_viewable_reviews, get_users_viewable_ticket
 from itertools import chain
 from django.db.models import CharField, Value
@@ -62,3 +62,23 @@ def review_page(request):
         ticket_form = forms.TicketForm()
 
     return render(request, 'blog/review.html', {'review_form': review_form, 'ticket_form': ticket_form})
+
+def deletepost(request):
+    #https://docs.djangoproject.com/en/3.1/topics/http/shortcuts/#get-object-or-404
+    
+    form = forms.FormDeletepost(request.POST)
+    if form.is_valid():
+        types = form.cleaned_data['types']
+        postid = form.cleaned_data['postid']
+        
+        if types == "review":
+            review = get_object_or_404(Review, id=postid)
+            if review.user == request.user:
+                review.delete()
+        if types == "ticket":
+            ticket = get_object_or_404(Ticket, id=postid)
+            
+            if ticket.user == request.user:
+                
+                ticket.delete()
+    return redirect("flux")

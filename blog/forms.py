@@ -25,3 +25,7 @@ class ReviewForm(forms.ModelForm):
             'headline': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
             'body': forms.Textarea(attrs={'class': 'form-textarea', 'placeholder': 'Contenu'}),
         }
+
+class FormDeletepost(forms.Form):
+    postid = forms.IntegerField(widget=forms.HiddenInput())
+    types = forms.CharField(widget=forms.HiddenInput())

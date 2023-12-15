@@ -26,8 +26,18 @@
                                 {% if post.ticket.image %}
                                     <a href="/media/{{ post.ticket.image }}"><img class="img_post" src="/media/{{ post.ticket.image }}" /></a>
                                 {% endif %}
+                                
                             </div>
-                            
+                            {%if post.user == request.user %}
+                                <div class="container_del_mod">
+                                    <form method="post"  action="/deletepost">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="postid" value="{{ post.id }}">
+                                        <input type="hidden" name="types" value="review">
+                                        <button type="submit" class="del_btn">Delete</button>
+                                    </form>
+                                </div>
+                            {%endif%}
                         </div>
                     {% else%}
                         <div class="container_ticket">
@@ -40,6 +50,16 @@
                             {% if post.image %}
                                 <a href="/media/{{ post.image }}"><img class="img_post" src="/media/{{ post.image }}" /></a>
                             {% endif %}
+                            {%if post.user == request.user %}
+                                <div class="container_del_mod">
+                                    <form method="post"  action="/deletepost">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="postid" value="{{ post.id }}">
+                                        <input type="hidden" name="types" value="ticket">
+                                        <button type="submit" class="del_btn">Delete</button>
+                                    </form>
+                                </div>
+                            {%endif%}
                         </div>
                     {% endif %}
                 {% endfor %}

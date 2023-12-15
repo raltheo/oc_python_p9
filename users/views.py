@@ -77,10 +77,11 @@ def unfollow_page(request):
     if form.is_valid():
         username = form.cleaned_data['username']
         if User.objects.filter(username=username).exists():
-            user_to_unfollow = User.objects.get(username=username)
-            if user_to_unfollow != request.user:
-                user_follow = UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow)
-                if user_follow.exists():
-                    user_follow.delete()
+            user_to_unfollow = User.objects.filter(username=username)
+            if user_to_unfollow.exists():
+                if user_to_unfollow != request.user:
+                    user_follow = UserFollows.objects.fitler(user=request.user, followed_user=user_to_unfollow)
+                    if user_follow.exists():
+                        user_follow.delete()
     
     return redirect("abonnement")

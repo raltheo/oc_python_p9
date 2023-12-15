@@ -32,6 +32,10 @@ urlpatterns = [
     path('review', blog.views.review_page, name='review'),
     path('abonnement', users.views.abonnement_page, name='abonnement'),
     path('unfollow', users.views.unfollow_page, name='unfollow'),
+    path('modifypost', users.views.unfollow_page, name='modifypost'),
+    path('block', users.views.unfollow_page, name='block'),
+    path('deletepost', blog.views.deletepost, name='deletepost'),
+    path('replyticket', users.views.unfollow_page, name='replyticket'),
 ]
 
 if settings.DEBUG:
