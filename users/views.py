@@ -73,6 +73,7 @@ def abonnement_page(request):
 
 @require_POST
 def unfollow_page(request):
+    #il faut encore check si le user exist je pense
     try:
         form = forms.UnfollowForm(request.POST)
         if form.is_valid():

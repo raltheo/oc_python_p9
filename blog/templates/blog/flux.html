@@ -6,7 +6,15 @@
 
 {% block content %}
     <div class="container_flux">
-        <h2>Posts</h2>
+        <div class="container_create_post">
+            <div class="choice_post">
+                <a class="a_btn" href="/ticket">Crée un Ticket</a>
+            </div>
+            <div class="choice_post">
+                <a class="a_btn" href="/review">Crée une Revue</a>
+            </div>
+        </div>
+        <h2>Flux</h2>
         <div class="container_post">
             {%if posts%}
                 {% for post in posts %}
@@ -28,16 +36,6 @@
                                 {% endif %}
                                 
                             </div>
-                            {%if post.user == request.user %}
-                                <div class="container_del_mod">
-                                    <form method="post"  action="/deletepost">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="postid" value="{{ post.id }}">
-                                        <input type="hidden" name="types" value="review">
-                                        <button type="submit" class="del_btn">Delete</button>
-                                    </form>
-                                </div>
-                            {%endif%}
                         </div>
                     {% else%}
                         <div class="container_ticket">
@@ -50,16 +48,6 @@
                             {% if post.image %}
                                 <a href="/media/{{ post.image }}"><img class="img_post" src="/media/{{ post.image }}" /></a>
                             {% endif %}
-                            {%if post.user == request.user %}
-                                <div class="container_del_mod">
-                                    <form method="post"  action="/deletepost">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="postid" value="{{ post.id }}">
-                                        <input type="hidden" name="types" value="ticket">
-                                        <button type="submit" class="del_btn">Delete</button>
-                                    </form>
-                                </div>
-                            {%endif%}
                             <div class="container_del_mod">
                                 <a class="del_btn" href="/reply?ticketid={{post.id}}">Crée une revue</a>
                             </div>

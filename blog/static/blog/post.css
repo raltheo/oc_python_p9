@@ -19,3 +19,114 @@
     padding: 1rem;
     border: 2px solid #66FCF1;;
 }
+
+.container_flux{
+    color: #66FCF1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    margin-top: 1rem;
+}
+
+.container_posts{
+    background-color: #1F2833;
+    width: 80%;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.container_ticket{
+    background-color: #0B0C10;
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.container_review{
+    background-color: #0B0C10;
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.header_ticket{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.header_review{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.ticket_in_review{
+    background-color: #1F2833;
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.img_post{
+    max-width: 500px;
+    object-fit: content;
+}
+
+.mange_curly{
+    margin: auto;
+}
+
+.container_del_mod{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+.del_btn{
+    background-color: #1F2833;
+    color: #66FCF1;
+    padding: .4rem;
+    border-radius: 12px;
+    border: #66FCF1 solid 2px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.container_create_post{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1rem;
+    width: 90%;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #1F2833;
+}
+
+.choice_post{
+    color: #66FCF1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .7rem;
+}
+
+.a_btn{
+    text-decoration: none;
+    color: #66FCF1;
+    border-radius: 12px;
+    padding: 1rem;
+    border: 2px solid #66FCF1;;
+}

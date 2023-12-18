@@ -40,9 +40,21 @@ def ticket_page(request):
 
     return render(request, 'blog/ticket.html', {'form': form})
 
+@login_required
 def post_page(request):
-    return render(request, "blog/post.html")
+    # posts = ""
+    reviews = Review.objects.filter(user=request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    tickets = Ticket.objects.filter(user=request.user)
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    posts = sorted(
+        chain(reviews, tickets), ## merci le cahier des charges xD (a moitié au final mdr)
+        key=lambda post: post.time_created,
+        reverse=True
+    )
+    return render(request, "blog/post.html", {'posts': posts})
 
+@login_required
 def review_page(request):
     if request.method == 'POST':
         review_form = forms.ReviewForm(request.POST)
@@ -67,6 +79,7 @@ def review_page(request):
 
     return render(request, 'blog/review.html', {'review_form': review_form, 'ticket_form': ticket_form})
 
+@login_required
 def deletepost(request):
     #https://docs.djangoproject.com/en/3.1/topics/http/shortcuts/#get-object-or-404
     
@@ -87,8 +100,8 @@ def deletepost(request):
                 ticket.delete()
     return redirect("flux")
 
-
-def reply_page(request):
+@login_required
+def reply_page(request):###pas ouf avec le get or 404 error if str, mais bon 
     try:
         if request.POST:
             ticket = get_object_or_404(Ticket, id=request.POST.get("ticketid"))
@@ -98,7 +111,6 @@ def reply_page(request):
                 review.ticket = ticket
                 review.user = request.user
                 review.save()
-
                 return redirect('flux')
         if request.GET.get("ticketid"):
             ticket = get_object_or_404(Ticket, id=request.GET.get("ticketid"))
@@ -110,3 +122,39 @@ def reply_page(request):
         
 
     return redirect("flux")
+
+@login_required
+def modify_page(request):
+
+    try:
+        if request.GET:
+            post = request.GET.get("type")
+            post_id = request.GET.get("id")
+            if post == "TICKET":
+                ticket = get_object_or_404(Ticket, id=post_id)
+                if request.user == ticket.user:
+
+                    if request.method == "POST":
+                        ticket_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+                        if ticket_form.is_valid():
+                            ticket_form.save()
+                            return redirect("flux")
+                        
+                    ticket_form = forms.TicketForm(instance=ticket) #https://stackoverflow.com/questions/2236691/how-do-i-display-the-value-of-a-django-form-field-in-a-template
+                    return render(request, "blog/modify.html", {"ticket" : ticket, "ticket_form": ticket_form})
+                
+            if post == "REVIEW":
+                review = get_object_or_404(Review, id=post_id)
+                if request.user == review.user:
+
+                    if request.method == "POST":
+                        review_form = forms.ReviewForm(request.POST, instance=review)
+                        if review_form.is_valid():
+                            review_form.save()
+                            return redirect("flux")
+
+                    review_form = forms.ReviewForm(instance=review)
+                    return render(request, "blog/modify.html", {"review" : review, "review_form" : review_form})
+            return redirect("flux")
+    except:
+        return redirect("flux")

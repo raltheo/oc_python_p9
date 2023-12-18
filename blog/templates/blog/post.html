@@ -4,16 +4,70 @@
     <link rel="stylesheet" href="{% static 'blog/post.css' %}" />
 {% endblock %}
 {% block content %}
-    <div class="container_post">
-        <div class="choice_post">
-            <h2>Crée un ticket</h2>
-            <p>les ticket vous permettent de demander l'avis d'un autre lecteur sur un livre en particulier</p>
-            <a class="a_btn" href="/ticket">Crée un Ticket</a>
-        </div>
-        <div class="choice_post">
-            <h2>Crée une Revue</h2>
-            <p>les revues vous permettent de donné votre avis sur une livre en particulier</p>
-            <a class="a_btn" href="/review">Crée une Revue</a>
+    <div class="container_flux">
+        <h2>Vos posts</h2>
+        <div class="container_posts">
+            {%if posts%}
+                    {% for post in posts %}
+                        {% if post.content_type == "REVIEW" %}
+                            <div class="container_review">
+                                <div class="header_review">
+                                    <p>{{ post.user }} a créé une revue</p>
+                                    <p>{{ post.time_created }}</p>
+                                </div>
+                                <h3>{{ post.headline }}</h3>
+                                <p>{{ post.body }}</p>
+                                <p>note : {{post.rating}}/5</p>
+                                <div class="ticket_in_review">
+                                    <p>Ticket - {{post.ticket.user}}</p>
+                                    <h4>{{post.ticket.title}}</h4>
+                                    <p>{{post.ticket.description}}</p>
+                                    {% if post.ticket.image %}
+                                        <a href="/media/{{ post.ticket.image }}"><img class="img_post" src="/media/{{ post.ticket.image }}" /></a>
+                                    {% endif %}
+                                    
+                                </div>
+                                {%if post.user == request.user %}
+                                    <div class="container_del_mod">
+                                        <form method="post"  action="/deletepost">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="postid" value="{{ post.id }}">
+                                            <input type="hidden" name="types" value="review">
+                                            <button type="submit" class="del_btn">Delete</button>
+                                        </form>
+                                        <a class="del_btn" href="/modify?type=REVIEW&id={{post.id}}">Modifier</a>
+                                    </div>
+                                {%endif%}
+                            </div>
+                        {% else%}
+                            <div class="container_ticket">
+                                <div class="header_ticket">
+                                    <p>{{ post.user }} a créé un ticket</p>
+                                    <p>{{ post.time_created }}</p>
+                                </div>
+                                <h3>{{ post.title }}</h3>
+                                <p>{{ post.description }}</p>
+                                {% if post.image %}
+                                    <a href="/media/{{ post.image }}"><img class="img_post" src="/media/{{ post.image }}" /></a>
+                                {% endif %}
+                                {%if post.user == request.user %}
+                                    <div class="container_del_mod">
+                                        <form method="post"  action="/deletepost">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="postid" value="{{ post.id }}">
+                                            <input type="hidden" name="types" value="ticket">
+                                            <button type="submit" class="del_btn">Delete</button>
+                                        </form>
+                                        <a class="del_btn" href="/modify?type=TICKET&id={{post.id}}">Modifier</a>
+                                    </div>
+                                {%endif%}
+                                
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {%else%}
+                    <h2 class="mange_curly">Commencez a suivre des personnes pour voir des revues</h2>
+                {%endif%}
         </div>
     </div>
 {% endblock %}

@@ -1,0 +1,50 @@
+.container_modif{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:#66FCF1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form_ticket{
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+    margin: auto;
+}
+
+.img_modif{
+    object-fit: contain;
+    max-width: 400px;
+}
+
+.rev_form{
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: auto;
+}
+
+.container_rep_tic{
+    display: flex;
+    flex-direction: column;
+    border: #66FCF1 solid 2px;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.rep_tick{
+    background-color: #1F2833;
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+}
+
+.img_ticket{
+    max-width: 250px;
+    object-fit: content;
+}
