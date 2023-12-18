@@ -11,8 +11,9 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required
 def flux_page(request):
-    reviews = get_users_viewable_reviews(request.user)
+    reviews, no_review = get_users_viewable_reviews(request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    no_review = no_review.annotate(content_type=Value('REVIEW', CharField()))
     tickets = get_users_viewable_ticket(request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
     unique_tickets = []
@@ -20,7 +21,7 @@ def flux_page(request):
         if not ticket.review_set.exists(): #https://docs.djangoproject.com/en/5.0/topics/db/queries/ search for _set
             unique_tickets.append(ticket)
     posts = sorted(
-        chain(reviews, unique_tickets), ## merci le cahier des charges xD (a moitié au final mdr)
+        chain(reviews, unique_tickets, no_review), ## merci le cahier des charges xD (a moitié au final mdr)
         key=lambda post: post.time_created,
         reverse=True
     )
