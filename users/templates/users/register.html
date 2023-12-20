@@ -19,8 +19,13 @@
             {{form.password2}}
             {% csrf_token %}
             <br>
-            <button class="btn_log" type="submit" >S'inscrire</button>
+            <div class="container_btn_reg">
+                <a href="/" class="btn_log">Retour</a>
+                <button class="btn_log" type="submit" >S'inscrire</button>
+            </div>
+            
         </form>
+        
     </div>
     
 {% endblock content %}

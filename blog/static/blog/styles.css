@@ -69,3 +69,8 @@ body{
     color: #66FCF1;
     border-radius: 12px;
 }
+
+.container_stars{
+    display: flex;
+    gap: .5rem;
+}

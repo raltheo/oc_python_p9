@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 def flux_page(request):
     reviews, no_review = get_users_viewable_reviews(request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    #https://stackoverflow.com/questions/1107737/numeric-for-loop-in-django-templates/63624984#63624984 => pour la loop dans la template
+    #pour template fontawesome user homive4111@aseall.com password : password
     no_review = no_review.annotate(content_type=Value('REVIEW', CharField()))
     tickets = get_users_viewable_ticket(request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
@@ -128,7 +130,8 @@ def reply_page(request):###pas ouf avec le get or 404 error if str, mais bon
 def modify_page(request):
 
     try:
-        if request.GET:
+        if request.GET :#### WTF COMMENT SA MARCHEEE ????? en post sa marche alors que sa devrait pas passer le if
+            print("test")
             post = request.GET.get("type")
             post_id = request.GET.get("id")
             if post == "TICKET":
@@ -136,6 +139,7 @@ def modify_page(request):
                 if request.user == ticket.user:
 
                     if request.method == "POST":
+                        print(request.GET.get("type"))# meeme en post c'est get pck c'est un truck global
                         ticket_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
                         if ticket_form.is_valid():
                             ticket_form.save()
@@ -156,6 +160,7 @@ def modify_page(request):
 
                     review_form = forms.ReviewForm(instance=review)
                     return render(request, "blog/modify.html", {"review" : review, "review_form" : review_form})
+                
             return redirect("flux")
     except:
         return redirect("flux")
