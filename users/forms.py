@@ -36,3 +36,6 @@ class UserFollowsForm(forms.Form):
 
 class UnfollowForm(forms.Form):
     username = forms.CharField(max_length=63, widget=forms.HiddenInput())
+
+class BlockForm(forms.Form):
+    username = forms.CharField(max_length=63, widget=forms.HiddenInput())

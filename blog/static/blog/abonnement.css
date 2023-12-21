@@ -48,3 +48,8 @@
     cursor: pointer;
     background-color: #1F2833;
 }
+
+.cont_block_btn{
+    display: flex;
+    gap: .5rem;
+}

@@ -33,7 +33,7 @@ urlpatterns = [
     path('abonnement', users.views.abonnement_page, name='abonnement'),
     path('unfollow', users.views.unfollow_page, name='unfollow'),
     path('modify', blog.views.modify_page, name='modify'),
-    # path('block', users.views.unfollow_page, name='block'),
+    path('block', users.views.block_page, name='block'),
     path('deletepost', blog.views.deletepost, name='deletepost'),
     path('reply', blog.views.reply_page, name='replyticket'),
 ]
