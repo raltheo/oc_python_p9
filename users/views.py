@@ -96,6 +96,7 @@ def unfollow_page(request):
                     user_follow = UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow)
                     if user_follow.exists():
                         user_follow.delete()
+                        return redirect('abonnement')
     except:
         return redirect('abonnement')
 
