@@ -22,21 +22,23 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', users.views.login_page, name='login'),
-    path('signup', users.views.signup_page, name='signup'),
-    path('logout', users.views.logout_page, name='logout'),
-    path('flux', blog.views.flux_page, name='flux'),
-    path('post', blog.views.post_page, name='post'),
-    path('ticket', blog.views.ticket_page, name='ticket'),
-    path('review', blog.views.review_page, name='review'),
-    path('abonnement', users.views.abonnement_page, name='abonnement'),
-    path('unfollow', users.views.unfollow_page, name='unfollow'),
-    path('modify', blog.views.modify_page, name='modify'),
-    path('block', users.views.block_page, name='block'),
-    path('deletepost', blog.views.deletepost, name='deletepost'),
-    path('reply', blog.views.reply_page, name='replyticket'),
+    path("admin/", admin.site.urls),
+    path("", users.views.login_page, name="login"),
+    path("signup", users.views.signup_page, name="signup"),
+    path("logout", users.views.logout_page, name="logout"),
+    path("flux", blog.views.flux_page, name="flux"),
+    path("post", blog.views.post_page, name="post"),
+    path("ticket", blog.views.ticket_page, name="ticket"),
+    path("review", blog.views.review_page, name="review"),
+    path("abonnement", users.views.abonnement_page, name="abonnement"),
+    path("unfollow", users.views.unfollow_page, name="unfollow"),
+    path("modify", blog.views.modify_page, name="modify"),
+    path("block", users.views.block_page, name="block"),
+    path("deletepost", blog.views.deletepost, name="deletepost"),
+    path("reply", blog.views.reply_page, name="replyticket"),
 ]
 
 if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
