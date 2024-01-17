@@ -1,10 +1,5 @@
 from users.models import UserFollows, UserBlock
 from blog.models import Review, Ticket
-from django.db.models import CharField, Value
-from itertools import chain
-
-# il me manque les
-
 
 def get_users_viewable_reviews(user):
     # https://stackoverflow.com/questions/55803243/cannot-query-object-must-be-user-instance
