@@ -14,7 +14,9 @@ import os
 def flux_page(request):
     reviews, no_review = get_users_viewable_reviews(request.user)
     reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
-    # https://stackoverflow.com/questions/1107737/numeric-for-loop-in-django-templates/63624984#63624984 => pour la loop dans la template
+    # https://stackoverflow.com/questions/1107737/numeric-for-
+    # loop-in-django-templates/63624984#63624984 =>
+    # pour la loop dans la template
     # pour template fontawesome user homive4111@aseall.com password : password
     no_review = no_review.annotate(content_type=Value("REVIEW", CharField()))
     tickets = get_users_viewable_ticket(request.user)
@@ -24,10 +26,12 @@ def flux_page(request):
         ticket
     ) in (
         tickets
-    ):  # check si le ticket a deja une revue si oui on le prend pas en tant que ticket mais en tant que revue
+    ):  # check si le ticket a deja une revue si oui
+        # on le prend pas en tant que ticket mais en tant que revue
         if (
             not ticket.review_set.exists()
-        ):  # https://docs.djangoproject.com/en/5.0/topics/db/queries/ search for _set
+        ):  # https://docs.djangoproject.com/en/5.0/topics/db/queries/
+            # search for _set
             unique_tickets.append(ticket)
     posts = sorted(
         chain(
@@ -163,7 +167,9 @@ def modify_page(request):
 
                 ticket_form = forms.TicketForm(
                     instance=ticket
-                )  # https://stackoverflow.com/questions/2236691/how-do-i-display-the-value-of-a-django-form-field-in-a-template
+                )  
+                # https://stackoverflow.com/questions/2236691/how-do-i-displ
+                # ay-the-value-of-a-django-form-field-in-a-template
                 return render(
                     request,
                     "blog/modify.html",
